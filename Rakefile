@@ -17,7 +17,7 @@ end
 
 task :play do
   file = Dir.glob("*.opus").sample
-  sh "open #{file}"
+  sh "open '#{file}'"
 end
 
 task :dl do
