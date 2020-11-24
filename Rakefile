@@ -21,9 +21,12 @@ task :play do
 end
 
 task :dl do
+  current_dir = Dir.entries('.')
   CSV.foreach(STORE) do |row|
-    puts "Downloading '#{row[0]}' to #{row[1]}"
-    download(row[0], row[1])
+    unless current_dir.include?(row[1])
+      puts "Downloading '#{row[0]}' to #{row[1]}"
+      download(row[0], row[1])
+    end
   end
 end
 
