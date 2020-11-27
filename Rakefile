@@ -13,6 +13,7 @@ task :default do
   new_title = title.gsub(/[[:space:]]/, '-')
   new_artist = artist.gsub(/[[:space:]]/, '-')
   download(url, "#{new_artist}--#{new_title}.opus")
+  add_to_log(yt_url, future_file_name)
 end
 
 task :play do
@@ -42,6 +43,5 @@ def download(yt_url, future_file_name)
   sh "youtube-dl -qx #{yt_url}"
   new_dir = Dir.entries(".")
   created_song =  new_dir - dir
-  add_to_log(yt_url, future_file_name)
   mv(created_song[0], future_file_name, verbose: false)
 end
