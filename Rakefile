@@ -12,8 +12,9 @@ task :default do
 
   new_title = title.gsub(/[[:space:]]/, '-')
   new_artist = artist.gsub(/[[:space:]]/, '-')
-  download(url, "#{new_artist}--#{new_title}.opus")
-  add_to_log(yt_url, future_file_name)
+  future_file_name = "#{new_artist}--#{new_title}.opus"
+  download(url, future_file_name)
+  add_to_log(url, future_file_name)
 end
 
 task :play do
