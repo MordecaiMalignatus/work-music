@@ -2,13 +2,16 @@ require 'csv'
 
 STORE = "dl_store.csv"
 
-task :default do
+task :default => :new
+
+desc "Add new set, download, and rename"
+task :new do
   puts "Enter URL for thing to download"
-  url = gets.chomp
+  url = STDIN.gets.chomp
   puts "Enter artist"
-  artist = gets.chomp
+  artist = STDIN.gets.chomp
   puts "Enter desired title"
-  title = gets.chomp
+  title = STDIN.gets.chomp
 
   new_title = title.gsub(/[[:space:]]/, '-')
   new_artist = artist.gsub(/[[:space:]]/, '-')
@@ -17,11 +20,13 @@ task :default do
   add_to_log(url, future_file_name)
 end
 
+desc "Pick random set and play"
 task :play do
   file = Dir.glob("*.opus").sample
   sh "open '#{file}'"
 end
 
+desc "Download the parts of the store not local yet"
 task :dl do
   current_dir = Dir.entries('.')
   CSV.foreach(STORE) do |row|
