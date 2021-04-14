@@ -18,6 +18,10 @@ task :new do
   future_file_name = "#{new_artist}--#{new_title}.opus"
   download(url, future_file_name)
   add_to_log(url, future_file_name)
+
+  sh 'git add .'
+  sh "git commit -m 'Set: #{new_artist} -- #{new_title}'"
+  sh 'git push'
 end
 
 desc "Pick random set and play"
