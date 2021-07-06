@@ -26,8 +26,8 @@ end
 
 desc "Pick random set and play"
 task :play do
-  file = Dir.glob("*.opus").sample
-  sh "open '#{file}'"
+  file = Dir.glob("*.{opus,m4a}").sample
+  sh "open -a VLC '#{file}'"
 end
 
 desc "Download the parts of the store not local yet"
@@ -50,5 +50,5 @@ end
 # Downloads a song and stores it as `future_file_name`
 def download(yt_url, future_file_name)
   dir = Dir.entries('.')
-  sh "youtube-dl -qx #{yt_url} -o '#{future_file_name}'"
+  sh "youtube-dl -qx #{yt_url} -o '#{future_file_name}'", verbose: false
 end

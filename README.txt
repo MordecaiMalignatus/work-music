@@ -7,7 +7,7 @@ it's a log of the stuff I downloaded and the tooling to download it again.
 
 Requires `youtube-dl`, and Ruby/Rake. You'll also want `open` to be a command,
 this specifically is for Macs but if you edit it to be `xdg-open` it should also
-work with linux. I usually use foobar2k for this.
+work with linux. I use VLC for this and the open command specifies this, as well.
 
 Usage
 =====
