@@ -50,8 +50,5 @@ end
 # Downloads a song and stores it as `future_file_name`
 def download(yt_url, future_file_name)
   dir = Dir.entries('.')
-  sh "youtube-dl -qx #{yt_url}"
-  new_dir = Dir.entries(".")
-  created_song =  new_dir - dir
-  mv(created_song[0], future_file_name, verbose: false)
+  sh "youtube-dl -qx #{yt_url} -o '#{future_file_name}'"
 end
