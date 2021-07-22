@@ -65,7 +65,7 @@ def play_set(set)
   sh "open -g -a VLC '#{set}'", verbose: false
 end
 
-def read_candidate_set(prompt)
+def read_candidate_set
   `ls *opus | fzf`.chomp
 end
 
