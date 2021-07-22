@@ -2,7 +2,7 @@ require 'csv'
 
 STORE = "dl_store.csv"
 
-task :default => :new
+task :default => :one
 
 desc "Add new set, download, and rename"
 task :new do
