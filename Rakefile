@@ -21,15 +21,16 @@ task :new do
   git_push('Set: #{new_artist} -- #{new_title}')
 end
 
+desc "Play a specific set"
+task :one do
+  c = read_candidate_set("Pick a set:")
+  play_set(c)
+end
+
 desc "Delete set from storage"
 task :delete do
-  candidates = Dir.glob('*.opus')
-  puts "Choose set to delete:"
-  candidates.each_with_index do |set,index|
-    puts "#{index} -- #{set}"
-  end
-  number = STDIN.gets.chomp.to_i
-  deletion_candidate = candidates[number]
+  deletion_candidate = read_candidate_set("Choose set to delete:")
+
   puts "Deleting #{number} -- #{deletion_candidate}"
   sh "rm '#{deletion_candidate}'", verbose: false
 
@@ -42,8 +43,7 @@ end
 
 desc "Pick random set and play"
 task :play do
-  file = Dir.glob("*.{opus,m4a}").sample
-  sh "open -g -a VLC '#{file}'"
+  play_set(Dir.glob("*.{opus,m4a}").sample)
 end
 
 desc "Download the parts of the store not local yet"
@@ -55,6 +55,20 @@ task :dl do
       download(row[0], row[1])
     end
   end
+end
+
+def play_set(set)
+  sh "open -g -a VLC '#{set}'", verbose: false
+end
+
+def read_candidate_set(prompt)
+  candidates = Dir.glob('*.opus')
+  puts prompt
+  candidates.each_with_index do |set,index|
+    puts "#{index} -- #{set}"
+  end
+  number = STDIN.gets.chomp.to_i
+  candidates[number]
 end
 
 def add_to_log(yt_url, file_name)
