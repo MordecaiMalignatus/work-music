@@ -62,13 +62,7 @@ def play_set(set)
 end
 
 def read_candidate_set(prompt)
-  candidates = Dir.glob('*.opus')
-  puts prompt
-  candidates.each_with_index do |set,index|
-    puts "#{index} -- #{set}"
-  end
-  number = STDIN.gets.chomp.to_i
-  candidates[number]
+  `ls *opus | fzf`.chomp
 end
 
 def add_to_log(yt_url, file_name)
