@@ -23,15 +23,19 @@ end
 
 desc "Play a specific set"
 task :one do
-  c = read_candidate_set("Pick a set:")
+  c = read_candidate_set
   play_set(c)
 end
 
 desc "Delete set from storage"
 task :delete do
-  deletion_candidate = read_candidate_set("Choose set to delete:")
+  deletion_candidate = read_candidate_set
 
-  puts "Deleting #{number} -- #{deletion_candidate}"
+  puts "Deleting #{number} -- #{deletion_candidate}, are you sure?"
+  input = STDIN.gets.chomp
+  unless input == "y" || input == "yes"
+    abort "Aborting..."
+  end
   sh "rm '#{deletion_candidate}'", verbose: false
 
   rows = CSV.read(STORE)
