@@ -18,7 +18,7 @@ task :new do
   future_file_name = "#{new_artist}--#{new_title}.opus"
   download(url, future_file_name)
   add_to_log(url, future_file_name)
-  git_push('Set: #{new_artist} -- #{new_title}')
+  git_push("Set: #{new_artist} -- #{new_title}")
 end
 
 desc "Play a specific set"
