@@ -61,6 +61,13 @@ task :dl do
   end
 end
 
+desc "Fix the sets that need it"
+task :fix do
+  file = './Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus'
+  sh "ffmpeg -ss 00:00:50 -i '#{file}' -c copy tmp.opus"
+  sh "mv tmp.opus '#{file}'"
+end
+
 def play_set(set)
   sh "open -g -a VLC '#{set}'", verbose: false
 end
