@@ -1,3 +1,4 @@
+
 require 'csv'
 
 STORE = "dl_store.csv"
@@ -24,6 +25,7 @@ end
 desc "Play a specific set"
 task :one do
   c = read_candidate_set
+  puts c
   play_set(c)
 end
 
