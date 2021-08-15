@@ -86,7 +86,7 @@ end
 
 # Downloads a song and stores it as `future_file_name`
 def download(yt_url, future_file_name)
-  sh "youtube-dl --audio-format opus -qx #{yt_url} -o '#{future_file_name}'", verbose: false
+  sh "youtube-dl --audio-format opus -x #{yt_url} -o '#{future_file_name}'", verbose: false
 end
 
 def git_push(message)
