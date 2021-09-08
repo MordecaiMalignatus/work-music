@@ -38,7 +38,7 @@ task :delete do
   unless input == "y" || input == "yes"
     abort "Aborting..."
   end
-  sh "rm '#{deletion_candidate}'", verbose: false
+  sh "rm '#{deletion_candidate}'"
 
   rows = CSV.read(STORE)
   filtered = rows.filter{|(_url, filename)| filename != deletion_candidate}
