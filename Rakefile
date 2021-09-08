@@ -75,7 +75,12 @@ def play_set(set)
 end
 
 def read_candidate_set
-  `ls *opus | fzf`.chomp
+  res = `ls *opus | fzf`.chomp
+  if res == ""
+    abort("No set selected")
+  else 
+    res
+  end
 end
 
 def add_to_log(yt_url, file_name)
