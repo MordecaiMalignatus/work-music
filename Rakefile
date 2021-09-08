@@ -33,7 +33,7 @@ desc "Delete set from storage"
 task :delete do
   deletion_candidate = read_candidate_set
 
-  puts "Deleting #{number} -- #{deletion_candidate}, are you sure?"
+  puts "Deleting #{deletion_candidate}, are you sure?"
   input = STDIN.gets.chomp
   unless input == "y" || input == "yes"
     abort "Aborting..."
