@@ -24,9 +24,7 @@ end
 
 desc "Play a specific set"
 task :one do
-  c = read_candidate_set
-  puts c
-  play_set(c)
+  play_set(read_candidate_set)
 end
 
 desc "Delete set from storage"
@@ -71,6 +69,7 @@ task :fix do
 end
 
 def play_set(set)
+  puts set
   sh "open -g -a VLC '#{set}'", verbose: false
 end
 
