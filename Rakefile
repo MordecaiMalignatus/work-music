@@ -63,8 +63,11 @@ end
 
 desc "Fix the sets that need it"
 task :fix do
-  file = './Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus'
-  sh "ffmpeg -ss 00:00:50 -i '#{file}' -c copy tmp.opus"
+  truncate_start("./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus", "00:00:50")
+end
+
+def truncate_start(file, new_start)
+  sh "ffmpeg -ss #{new_start} -i '#{file}' -c copy tmp.opus"
   sh "mv tmp.opus '#{file}'"
 end
 
@@ -77,7 +80,7 @@ def read_candidate_set
   res = `ls *opus | fzf`.chomp
   if res == ""
     abort("No set selected")
-  else 
+  else
     res
   end
 end
