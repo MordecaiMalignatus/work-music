@@ -63,13 +63,12 @@ end
 
 desc "Fix the sets that need it"
 task :fix do
-  # truncate_start("./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus", "00:00:50")
-  truncate_start("./Trym--HOER-2021-09-05.opus", "00:00:15")
+  truncate_start("./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus", "00:01:10")
 end
 
 def truncate_start(file, new_start)
   sh "ffmpeg -ss #{new_start} -i '#{file}' -c copy tmp.opus"
-  sh "mv tmp.opus '#{file}'"
+  sh "mv -f tmp.opus '#{file}'"
 end
 
 def play_set(set)
