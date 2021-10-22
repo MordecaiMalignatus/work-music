@@ -42,7 +42,7 @@ task :delete do
   filtered = rows.filter{|(_url, filename)| filename != deletion_candidate}
   File.write(STORE, filtered.map(&:to_csv).join)
 
-  git_push('Deleted: #{new_artist} -- #{new_title}')
+  git_push("Deleted: #{new_artist} -- #{new_title}")
 end
 
 desc "Pick random set and play"
