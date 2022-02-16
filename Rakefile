@@ -1,18 +1,19 @@
+# frozen_string_literal: true
 
 require 'csv'
 
-STORE = "dl_store.csv"
+STORE = 'dl_store.csv'
 
-task :default => :one
+task default: :one
 
-desc "Add new set, download, and rename"
+desc 'Add new set, download, and rename'
 task :new do
-  puts "Enter URL for thing to download"
-  url = STDIN.gets.chomp
-  puts "Enter artist"
-  artist = STDIN.gets.chomp
-  puts "Enter desired title"
-  title = STDIN.gets.chomp
+  puts 'Enter URL for thing to download'
+  url = $stdin.gets.chomp
+  puts 'Enter artist'
+  artist = $stdin.gets.chomp
+  puts 'Enter desired title'
+  title = $stdin.gets.chomp
 
   new_title = title.gsub(/[[:space:]]/, '-')
   new_artist = artist.gsub(/[[:space:]]/, '-')
@@ -22,35 +23,34 @@ task :new do
   git_push("Set: #{new_artist} -- #{new_title}")
 end
 
-desc "Play a specific set"
+desc 'Play a specific set'
 task :one do
   play_set(read_candidate_set)
 end
 
-desc "Delete set from storage"
+desc 'Delete set from storage'
 task :delete do
   deletion_candidate = read_candidate_set
 
   puts "Deleting #{deletion_candidate}, are you sure?"
-  input = STDIN.gets.chomp
-  unless input == "y" || input == "yes"
-    abort "Aborting..."
-  end
+  input = $stdin.gets.chomp
+  abort 'Aborting...' unless %w[y yes].include?(input)
+
   sh "rm '#{deletion_candidate}'"
 
   rows = CSV.read(STORE)
-  filtered = rows.filter{|(_url, filename)| filename != deletion_candidate}
+  filtered = rows.filter { |(_url, filename)| filename != deletion_candidate }
   File.write(STORE, filtered.map(&:to_csv).join)
 
-  git_push("Deleted: #{new_artist} -- #{new_title}")
+  git_push("Deleted: #{deletion_candidate}")
 end
 
-desc "Pick random set and play"
+desc 'Pick random set and play'
 task :play do
-  play_set(Dir.glob("*.{opus,m4a}").sample)
+  play_set(Dir.glob('*.{opus,m4a}').sample)
 end
 
-desc "Download the parts of the store not local yet"
+desc 'Download the parts of the store not local yet'
 task :dl do
   current_dir = Dir.entries('.')
   CSV.foreach(STORE) do |row|
@@ -61,9 +61,9 @@ task :dl do
   end
 end
 
-desc "Fix the sets that need it"
+desc 'Fix the sets that need it'
 task :fix do
-  truncate_start("./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus", "00:01:10")
+  truncate_start('./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus', '00:01:10')
 end
 
 def truncate_start(file, new_start)
@@ -78,8 +78,8 @@ end
 
 def read_candidate_set
   res = `ls *opus | fzf`.chomp
-  if res == ""
-    abort("No set selected")
+  if res == ''
+    abort('No set selected')
   else
     res
   end
