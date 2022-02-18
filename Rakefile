@@ -63,7 +63,8 @@ end
 
 desc 'Fix the sets that need it'
 task :fix do
-  truncate_start('./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus', '00:01:10')
+  truncate_start("./Kahn,-Neek,-Hi5-Ghost,-Boofy--The-Lab-(2014).opus", "00:01:10")
+  truncate_start("I-Hate-Models--Slam-Radio-2013.opus", "00:00:55")
 end
 
 def truncate_start(file, new_start)
