@@ -15,7 +15,7 @@ Usage
 Adding a new set:
 -----------------
 
-1. rake
+1. rake new
 2. Follow instructions
 
 Downloading `dl_store.csv`:
@@ -29,3 +29,10 @@ Opening a random set:
 
 1. rake play
 2. Start grooving.
+
+Picking a set with fzf: 
+-----------------------
+
+1. rake
+2. Pick one
+3. Hit return
