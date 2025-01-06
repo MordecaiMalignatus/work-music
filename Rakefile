@@ -94,7 +94,11 @@ end
 
 # Downloads a song and stores it as `future_file_name`
 def download(yt_url, future_file_name)
-  sh "yt-dlp --audio-format opus -x #{yt_url} -o '#{future_file_name}'", verbose: false
+  sh "yt-dlp --audio-format opus -x #{yt_url} -o '#{future_file_name}'", verbose: false do |ok, res|
+  if not ok
+    puts "failed to fetch video at #{yt_url}\n\n"
+  end
+  end
 end
 
 def git_push(message)
